@@ -1,0 +1,148 @@
+{
+  "paragraphs": [
+    {
+      "text": "%spark.pyspark\n# spark is an existing SparkSession\ndf \u003d spark.read.json(\"/workspace/people.json\")\n# Displays the content of the DataFrame to stdout\ndf.show()",
+      "user": "anonymous",
+      "dateUpdated": "2020-10-16 15:11:22.135",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "/usr/bin/spark-3.0.0-bin-hadoop2.7/python/lib/pyspark.zip/pyspark/util.py:141: UserWarning: Currently, \u0027setJobGroup\u0027 (set to local properties) with multiple threads does not properly work. \nInternally threads on PVM and JVM are not synced, and JVM thread can be reused for multiple threads on PVM, which fails to isolate local properties for each thread on PVM. \nTo work around this, you can set PYSPARK_PIN_THREAD to true (see SPARK-22340). However, note that it cannot inherit the local properties from the parent thread although it isolates each thread on PVM and JVM with its own local properties. \nTo work around this, you should manually copy and set the local properties from the parent thread to the child thread when you create another thread.\n/usr/bin/spark-3.0.0-bin-hadoop2.7/python/lib/pyspark.zip/pyspark/util.py:141: UserWarning: Currently, \u0027setLocalProperty\u0027 (set to local properties) with multiple threads does not properly work. \nInternally threads on PVM and JVM are not synced, and JVM thread can be reused for multiple threads on PVM, which fails to isolate local properties for each thread on PVM. \nTo work around this, you can set PYSPARK_PIN_THREAD to true (see SPARK-22340). However, note that it cannot inherit the local properties from the parent thread although it isolates each thread on PVM and JVM with its own local properties. \nTo work around this, you should manually copy and set the local properties from the parent thread to the child thread when you create another thread.\n+----+-------+\n| age|   name|\n+----+-------+\n|null|Michael|\n|  30|   Andy|\n|  19| Justin|\n+----+-------+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1602837692173_-63214900",
+      "id": "paragraph_1602837692173_-63214900",
+      "dateCreated": "2020-10-16 08:41:32.173",
+      "dateStarted": "2020-10-16 15:11:22.252",
+      "dateFinished": "2020-10-16 15:11:48.437",
+      "status": "FINISHED"
+    },
+    {
+      "text": "%spark.pyspark\nfrom pyspark import SparkFiles\n\nspark \u003d SparkSession.builder.appName(\u0027Zeppelin\u0027).config(\"spark.files.overwrite\", \"true\").getOrCreate()\n\ntempdir \u003d \"/workspace\"\npath \u003d os.path.join(tempdir, \"test.txt\")\n\nwith open(path, \"w\") as testFile:\n\n   _ \u003d testFile.write(\"100\")\n\nsc.addFile(path)\n\ndef func(iterator):\n\n   with open(SparkFiles.get(\"test.txt\")) as testFile:\n\n       fileVal \u003d int(testFile.readline())\n\n       return [x * fileVal for x in iterator]\n\nsc.parallelize([1, 2, 3, 4]).mapPartitions(func).collect()\n[100, 200, 300, 400]\n\nprint(\"root dir of SparkFiles \" + SparkFiles.getRootDirectory())\n\nprint(\"path of test.txt file\" + SparkFiles.get(\"test.txt\"))\n\n\nspark.sparkContext.getConf().getAll()",
+      "user": "anonymous",
+      "dateUpdated": "2020-10-16 12:45:36.062",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m\n\u001b[0;31mAttributeError\u001b[0m                            Traceback (most recent call last)\n\u001b[0;32m\u003cipython-input-28-398873f07ebd\u003e\u001b[0m in \u001b[0;36m\u003cmodule\u003e\u001b[0;34m\u001b[0m\n\u001b[1;32m     10\u001b[0m    \u001b[0m_\u001b[0m \u001b[0;34m\u003d\u001b[0m \u001b[0mtestFile\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mwrite\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"100\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     11\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---\u003e 12\u001b[0;31m \u001b[0msc\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0maddFile\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mpath\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     13\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     14\u001b[0m \u001b[0;32mdef\u001b[0m \u001b[0mfunc\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0miterator\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\n\u001b[0;31mAttributeError\u001b[0m: \u0027SparkSession\u0027 object has no attribute \u0027addFile\u0027"
+          }
+        ]
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1602837760265_-1663950638",
+      "id": "paragraph_1602837760265_-1663950638",
+      "dateCreated": "2020-10-16 08:42:40.265",
+      "dateStarted": "2020-10-16 12:45:15.609",
+      "dateFinished": "2020-10-16 12:45:15.848",
+      "status": "ERROR"
+    },
+    {
+      "text": "%spark.pyspark\n\n\nspark.sparkContext.getConf().getAll()",
+      "user": "anonymous",
+      "dateUpdated": "2020-10-16 11:56:32.470",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "/usr/bin/spark-3.0.0-bin-hadoop2.7/python/lib/pyspark.zip/pyspark/util.py:141: UserWarning: Currently, \u0027setJobGroup\u0027 (set to local properties) with multiple threads does not properly work. \nInternally threads on PVM and JVM are not synced, and JVM thread can be reused for multiple threads on PVM, which fails to isolate local properties for each thread on PVM. \nTo work around this, you can set PYSPARK_PIN_THREAD to true (see SPARK-22340). However, note that it cannot inherit the local properties from the parent thread although it isolates each thread on PVM and JVM with its own local properties. \nTo work around this, you should manually copy and set the local properties from the parent thread to the child thread when you create another thread.\n/usr/bin/spark-3.0.0-bin-hadoop2.7/python/lib/pyspark.zip/pyspark/util.py:141: UserWarning: Currently, \u0027setLocalProperty\u0027 (set to local properties) with multiple threads does not properly work. \nInternally threads on PVM and JVM are not synced, and JVM thread can be reused for multiple threads on PVM, which fails to isolate local properties for each thread on PVM. \nTo work around this, you can set PYSPARK_PIN_THREAD to true (see SPARK-22340). However, note that it cannot inherit the local properties from the parent thread although it isolates each thread on PVM and JVM with its own local properties. \nTo work around this, you should manually copy and set the local properties from the parent thread to the child thread when you create another thread.\n[(\u0027spark.jars.packages\u0027, \u0027org.postgresql:postgresql:42.2.17\u0027),\n (\u0027zeppelin.spark.concurrentSQL\u0027, \u0027false\u0027),\n (\u0027zeppelin.pyspark.useIPython\u0027, \u0027true\u0027),\n (\u0027master\u0027, \u0027spark://spark-master:7077\u0027),\n (\u0027zeppelin.R.cmd\u0027, \u0027R\u0027),\n (\u0027spark.driver.memory\u0027, \u00271g\u0027),\n (\u0027spark.driver.host\u0027, \u002775b509dec35c\u0027),\n (\u0027zeppelin.interpreter.output.limit\u0027, \u0027102400\u0027),\n (\u0027spark.driver.extraJavaOptions\u0027,\n  \" -Dfile.encoding\u003dUTF-8 -Dlog4j.configuration\u003dfile:///zeppelin/conf/log4j.properties -Dzeppelin.log.file\u003d\u0027/zeppelin/logs/zeppelin-interpreter-spark-shared_process--75b509dec35c.log\u0027\"),\n (\u0027spark.webui.yarn.useProxy\u0027, \u0027false\u0027),\n (\u0027spark.executor.memory\u0027, \u00271g\u0027),\n (\u0027spark.useHiveContext\u0027, \u0027true\u0027),\n (\u0027spark.master\u0027, \u0027spark://spark-master:7077\u0027),\n (\u0027zeppelin.kotlin.shortenTypes\u0027, \u0027true\u0027),\n (\u0027zeppelin.R.knitr\u0027, \u0027true\u0027),\n (\u0027PYSPARK_PYTHON\u0027, \u0027python3\u0027),\n (\u0027spark.submit.deployMode\u0027, \u0027client\u0027),\n (\u0027spark.driver.extraClassPath\u0027,\n  \u0027:/zeppelin/interpreter/spark/*::/zeppelin/interpreter/zeppelin-interpreter-shaded-0.9.0-preview1.jar:/zeppelin/interpreter/spark/spark-interpreter-0.9.0-preview1.jar\u0027),\n (\u0027spark.driver.cores\u0027, \u00271\u0027),\n (\u0027zeppelin.spark.useHiveContext\u0027, \u0027true\u0027),\n (\u0027zeppelin.interpreter.localRepo\u0027, \u0027/zeppelin/local-repo/spark\u0027),\n (\u0027spark.repl.class.outputDir\u0027, \u0027/tmp/spark5949390599567624923\u0027),\n (\u0027zeppelin.spark.printREPLOutput\u0027, \u0027true\u0027),\n (\u0027zeppelin.spark.maxResult\u0027, \u00271000\u0027),\n (\u0027zeppelin.spark.enableSupportedVersionCheck\u0027, \u0027true\u0027),\n (\u0027spark.executor.id\u0027, \u0027driver\u0027),\n (\u0027zeppelin.R.render.options\u0027,\n  \"out.format \u003d \u0027html\u0027, comment \u003d NA, echo \u003d FALSE, results \u003d \u0027asis\u0027, message \u003d F, warning \u003d F, fig.retina \u003d 2\"),\n (\u0027zeppelin.R.image.width\u0027, \u0027100%\u0027),\n (\u0027zeppelin.spark.ui.hidden\u0027, \u0027false\u0027),\n (\u0027PYSPARK_DRIVER_PYTHON\u0027, \u0027python3\u0027),\n (\u0027spark.repl.class.uri\u0027, \u0027spark://75b509dec35c:41975/classes\u0027),\n (\u0027zeppelin.spark.sql.stacktrace\u0027, \u0027false\u0027),\n (\u0027zeppelin.spark.deprecatedMsg.show\u0027, \u0027true\u0027),\n (\u0027spark.app.id\u0027, \u0027app-20201016115640-0000\u0027),\n (\u0027SPARK_HOME\u0027, \u0027/usr/bin/spark-3.0.0-bin-hadoop2.7\u0027),\n (\u0027spark.submit.pyFiles\u0027, \u0027\u0027),\n (\u0027zeppelin.spark.concurrentSQL.max\u0027, \u002710\u0027),\n (\u0027spark.app.name\u0027, \u0027Zeppelin\u0027),\n (\u0027spark.executor.cores\u0027, \u00271\u0027),\n (\u0027spark.driver.port\u0027, \u002741975\u0027),\n (\u0027zeppelin.interpreter.max.poolsize\u0027, \u002710\u0027),\n (\u0027zeppelin.spark.sql.interpolation\u0027, \u0027false\u0027),\n (\u0027zeppelin.spark.scala.color\u0027, \u0027true\u0027),\n (\u0027spark.jars\u0027,\n  \u0027file:///zeppelin/.ivy2/jars/org.postgresql_postgresql-42.2.17.jar,file:///zeppelin/.ivy2/jars/org.checkerframework_checker-qual-3.5.0.jar,file:/zeppelin/interpreter/spark/spark-interpreter-0.9.0-preview1.jar\u0027),\n (\u0027spark.repl.local.jars\u0027,\n  \u0027file:///zeppelin/.ivy2/jars/org.postgresql_postgresql-42.2.17.jar,file:///zeppelin/.ivy2/jars/org.checkerframework_checker-qual-3.5.0.jar\u0027)]"
+          }
+        ]
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1602840343538_1139983986",
+      "id": "paragraph_1602840343538_1139983986",
+      "dateCreated": "2020-10-16 09:25:43.538",
+      "dateStarted": "2020-10-16 11:56:32.586",
+      "dateFinished": "2020-10-16 11:56:51.883",
+      "status": "FINISHED"
+    },
+    {
+      "text": "%spark.pyspark\n",
+      "user": "anonymous",
+      "dateUpdated": "2020-10-16 11:32:00.663",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1602847920662_514631123",
+      "id": "paragraph_1602847920662_514631123",
+      "dateCreated": "2020-10-16 11:32:00.662",
+      "status": "READY"
+    }
+  ],
+  "name": "pyspark_get_started",
+  "id": "2FNPJDQQU",
+  "defaultInterpreterGroup": "spark",
+  "version": "0.9.0-preview1",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

@@ -1,0 +1,137 @@
+version: '3'
+
+
+volumes:
+  source-db-data: # named volumes can be managed easier using docker-compose
+  target-db-data:
+  spark-master-volume:
+    driver: local
+  spark-worker-volume:
+    driver: local
+  workspace:
+    name: "hadoop-distributed-file-system"
+    driver: local
+
+
+networks:
+   virtualnet:
+        driver: bridge
+        ipam:
+           driver: default
+           config:
+             - subnet: "172.16.100.0/24"
+
+services:
+  zeppelin_notebook_server:
+    image: zeppelin
+    container_name: zeppelin_notebook_server
+    restart: unless-stopped
+    volumes:
+      - ./config-zeppelin:/zeppelin/conf:rw
+#      - ./zeppelin-config/interpreter.json:/zeppelin/conf/interpreter.json:rw
+      - ./notebooks-zeppelin:/zeppelin/notebook
+      - ./input-data-zeppelin:/input-data:ro
+      - ./output-data-zeppelin:/output-data:rw
+      - ./workspace:/workspace
+    ports:
+      - 8080
+      - 4040
+    labels:
+      container_group: "notebook"
+    environment:
+      MASTER: "spark://spark-master:7077"
+      SPARK_MASTER: "spark://spark-master:7077"
+# set via interpreter.json setting file in ./zeppelin-config
+#      SPARK_HOME: /usr/bin/spark-3.0.0-bin-hadoop2.7
+#      SPARK_HOME: /usr/spark-2.4.1
+    networks:
+     virtualnet:
+        ipv4_address: 172.16.100.30
+    depends_on:
+      - spark-master
+
+  spark-master:
+    image: spark-master
+    container_name: spark-master
+    ports:
+      - 8080
+      - 7077
+# Experimental see: https://spark.apache.org/docs/3.0.0-preview2/job-scheduling.html
+    environment:
+      PYSPARK_PIN_THREAD: 'true'
+      PYSPARK_PYTHON: python3       
+      PYSPARK_DRIVER_PYTHON: python3
+    volumes:
+      - ./workspace:/workspace
+    networks:
+     virtualnet:
+        ipv4_address: 172.16.100.20
+
+  spark-worker-1:
+    image: spark-worker
+    container_name: spark-worker-1
+    environment:
+      - SPARK_WORKER_CORES=1
+      - SPARK_WORKER_MEMORY=1024m
+# Experimental see: https://spark.apache.org/docs/3.0.0-preview2/job-scheduling.html
+      - PYSPARK_PIN_THREAD=true
+      - PYSPARK_PYTHON="python3"
+      - PYSPARK_DRIVER_PYTHON="python3"
+    ports:
+      - 8081
+    volumes:
+      - ./workspace:/workspace
+    networks:
+     virtualnet:
+        ipv4_address: 172.16.100.21
+    depends_on:
+      - spark-master
+
+  spark-worker-2:
+    image: spark-worker
+    container_name: spark-worker-2
+    environment:
+      - SPARK_WORKER_CORES=1
+      - SPARK_WORKER_MEMORY=1024m
+# Experimental see: https://spark.apache.org/docs/3.0.0-preview2/job-scheduling.html
+      - PYSPARK_PIN_THREAD=true
+      - PYSPARK_PYTHON="python3"
+      - PYSPARK_DRIVER_PYTHON="python3"
+    ports:
+      - 8081
+    volumes:
+      - ./workspace:/workspace
+    networks:
+     virtualnet:
+        ipv4_address: 172.16.100.22
+    depends_on:
+      - spark-master
+
+  source_db:
+    image: "postgres" # use latest official postgres version
+    env_file:
+      - database_source.env # configure postgres
+    healthcheck:
+      test: "pg_isready -q -d source_db -U source_user"    
+    volumes:
+      - ./source-db-data:/var/lib/postgresql/data # persist data even if container shuts down
+    ports:
+      - 5432
+    networks:
+     virtualnet:
+        ipv4_address: 172.16.100.10
+
+  target_db:
+    image: "postgres" # use latest official postgres version
+    env_file:
+      - database_target.env # configure postgres
+    healthcheck:
+      test: "pg_isready -q -d target_db -U target_user"    
+    volumes:
+      - ./target-db-data:/var/lib/postgresql/data # persist data even if container shuts down
+    ports:
+      - 5432
+    networks:
+     virtualnet:
+        ipv4_address: 172.16.100.11
+

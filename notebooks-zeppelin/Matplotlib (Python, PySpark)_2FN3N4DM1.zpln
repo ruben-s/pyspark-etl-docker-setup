@@ -1,0 +1,14 @@
+{
+  "paragraphs": [],
+  "name": "Matplotlib (Python, PySpark)",
+  "id": "2FN3N4DM1",
+  "defaultInterpreterGroup": "spark",
+  "version": "0.9.0-preview1",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

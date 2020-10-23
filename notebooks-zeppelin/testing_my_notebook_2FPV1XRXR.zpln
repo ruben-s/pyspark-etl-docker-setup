@@ -1,0 +1,148 @@
+{
+  "paragraphs": [
+    {
+      "text": "%spark.pyspark\nbook \u003d spark.read.text(\"/workspace/158-0.txt\")\nbook.printSchema()\ntype(book)\nz.put(\"book\", book._jdf)\n",
+      "user": "anonymous",
+      "dateUpdated": "2020-10-08 14:45:03.907",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "/usr/bin/spark-3.0.0-bin-hadoop2.7/python/lib/pyspark.zip/pyspark/util.py:141: UserWarning: Currently, \u0027setJobGroup\u0027 (set to local properties) with multiple threads does not properly work. \nInternally threads on PVM and JVM are not synced, and JVM thread can be reused for multiple threads on PVM, which fails to isolate local properties for each thread on PVM. \nTo work around this, you can set PYSPARK_PIN_THREAD to true (see SPARK-22340). However, note that it cannot inherit the local properties from the parent thread although it isolates each thread on PVM and JVM with its own local properties. \nTo work around this, you should manually copy and set the local properties from the parent thread to the child thread when you create another thread.\n/usr/bin/spark-3.0.0-bin-hadoop2.7/python/lib/pyspark.zip/pyspark/util.py:141: UserWarning: Currently, \u0027setLocalProperty\u0027 (set to local properties) with multiple threads does not properly work. \nInternally threads on PVM and JVM are not synced, and JVM thread can be reused for multiple threads on PVM, which fails to isolate local properties for each thread on PVM. \nTo work around this, you can set PYSPARK_PIN_THREAD to true (see SPARK-22340). However, note that it cannot inherit the local properties from the parent thread although it isolates each thread on PVM and JVM with its own local properties. \nTo work around this, you should manually copy and set the local properties from the parent thread to the child thread when you create another thread.\nroot\n |-- value: string (nullable \u003d true)\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1602050386199_-443324745",
+      "id": "paragraph_1602050386199_-443324745",
+      "dateCreated": "2020-10-07 05:59:46.199",
+      "dateStarted": "2020-10-08 14:45:03.918",
+      "dateFinished": "2020-10-08 14:45:04.276",
+      "status": "FINISHED"
+    },
+    {
+      "text": "\n%pyspark\nimport pandas\n\nbook_df \u003d z.getAsDataFrame(\u0027book\u0027)\n#.asInstanceOf[org.apache.spark.sql.DataFrame]\n#type(book_df)",
+      "user": "anonymous",
+      "dateUpdated": "2020-10-11 16:47:06.109",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m\n\u001b[0;31mTypeError\u001b[0m                                 Traceback (most recent call last)\n\u001b[0;32m\u003cipython-input-46-2208ad3fead0\u003e\u001b[0m in \u001b[0;36m\u003cmodule\u003e\u001b[0;34m\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mpandas\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      2\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----\u003e 3\u001b[0;31m \u001b[0mbook_df\u001b[0m \u001b[0;34m\u003d\u001b[0m \u001b[0mz\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mgetAsDataFrame\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\u0027book\u0027\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      4\u001b[0m \u001b[0;31m#.asInstanceOf[org.apache.spark.sql.DataFrame]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m \u001b[0;31m#type(book_df)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\n\u001b[0;32m\u003cipython-input-2-8d60e03d5f2e\u003e\u001b[0m in \u001b[0;36mgetAsDataFrame\u001b[0;34m(self, key)\u001b[0m\n\u001b[1;32m     65\u001b[0m         \u001b[0;32mexcept\u001b[0m \u001b[0mImportError\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     66\u001b[0m             \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"fail to call getAsDataFrame as pandas is not installed\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---\u003e 67\u001b[0;31m         \u001b[0;32mreturn\u001b[0m \u001b[0mpd\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mread_csv\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mStringIO\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mvalue\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0msep\u001b[0m\u001b[0;34m\u003d\u001b[0m\u001b[0;34m\"\\t\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     68\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     69\u001b[0m     \u001b[0;32mdef\u001b[0m \u001b[0mremove\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mkey\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\n\u001b[0;31mTypeError\u001b[0m: initial_value must be str or None, not JavaObject"
+          }
+        ]
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1602146282716_908996696",
+      "id": "paragraph_1602146282716_908996696",
+      "dateCreated": "2020-10-08 08:38:02.716",
+      "dateStarted": "2020-10-11 16:47:06.113",
+      "dateFinished": "2020-10-11 16:47:06.286",
+      "status": "ERROR"
+    },
+    {
+      "text": "%spark.pyspark\nfrom pyspark.sql import SparkSession\n\n# spark \u003d SparkSession \\\n#    .builder \\\n#    .appName(\"Python Spark SQL basic example\") \\\n#    .config(\"spark.jars\", \"/workspace/postgresql-42.2.17.jar\") \\\n#    .getOrCreate()\n\n\ndf_rental \u003d spark.read \\\n    .format(\"jdbc\") \\\n    .option(\"url\", \"jdbc:postgresql://172.16.100.10:5432/dvdrental\") \\\n    .option(\"dbtable\", \"rental\") \\\n    .option(\"user\", \"source_user\") \\\n    .option(\"password\", \"source\") \\\n    .option(\"driver\", \"org.postgresql.Driver\") \\\n    .load()\n\ndf_rental.printSchema()\n\n\ndf_customer \u003d spark.read \\\n    .format(\"jdbc\") \\\n    .option(\"url\", \"jdbc:postgresql://172.16.100.10:5432/dvdrental\") \\\n    .option(\"dbtable\", \"customer\") \\\n    .option(\"user\", \"source_user\") \\\n    .option(\"password\", \"source\") \\\n    .option(\"driver\", \"org.postgresql.Driver\") \\\n    .load()\n\ndf_customer.printSchema()\n\n# df.show()\n\n# dfwrite \u003d df.write\n\n# type(dfwrite)\n\n# dfwrite.save(path \u003d\"\\workspace\\actor_data\")\n\ninner_join \u003d df_customer.join(df_rental, df_customer.customer_id \u003d\u003d df_rental.customer_id)\n\ninner_join.show()",
+      "user": "anonymous",
+      "dateUpdated": "2020-10-16 15:21:18.576",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "root\n |-- rental_id: integer (nullable \u003d true)\n |-- rental_date: timestamp (nullable \u003d true)\n |-- inventory_id: integer (nullable \u003d true)\n |-- customer_id: short (nullable \u003d true)\n |-- return_date: timestamp (nullable \u003d true)\n |-- staff_id: short (nullable \u003d true)\n |-- last_update: timestamp (nullable \u003d true)\n\nroot\n |-- customer_id: integer (nullable \u003d true)\n |-- store_id: short (nullable \u003d true)\n |-- first_name: string (nullable \u003d true)\n |-- last_name: string (nullable \u003d true)\n |-- email: string (nullable \u003d true)\n |-- address_id: short (nullable \u003d true)\n |-- activebool: boolean (nullable \u003d true)\n |-- create_date: date (nullable \u003d true)\n |-- last_update: timestamp (nullable \u003d true)\n |-- active: integer (nullable \u003d true)\n\n+-----------+--------+----------+---------+--------------------+----------+----------+-----------+--------------------+------+---------+-------------------+------------+-----------+-------------------+--------+-------------------+\n|customer_id|store_id|first_name|last_name|               email|address_id|activebool|create_date|         last_update|active|rental_id|        rental_date|inventory_id|customer_id|        return_date|staff_id|        last_update|\n+-----------+--------+----------+---------+--------------------+----------+----------+-----------+--------------------+------+---------+-------------------+------------+-----------+-------------------+--------+-------------------+\n|        148|       1|   Eleanor|     Hunt|eleanor.hunt@saki...|       152|      true| 2006-02-14|2013-05-26 14:49:...|     1|      682|2005-05-28 23:53:18|        3160|        148|2005-05-29 19:14:18|       2|2006-02-16 02:30:53|\n|        148|       1|   Eleanor|     Hunt|eleanor.hunt@saki...|       152|      true| 2006-02-14|2013-05-26 14:49:...|     1|     1501|2005-06-15 22:02:35|        1780|        148|2005-06-23 18:59:35|       1|2006-02-16 02:30:53|\n|        148|       1|   Eleanor|     Hunt|eleanor.hunt@saki...|       152|      true| 2006-02-14|2013-05-26 14:49:...|     1|     1517|2005-06-15 23:20:26|        3728|        148|2005-06-23 23:23:26|       1|2006-02-16 02:30:53|\n|        148|       1|   Eleanor|     Hunt|eleanor.hunt@saki...|       152|      true| 2006-02-14|2013-05-26 14:49:...|     1|     2751|2005-06-19 16:39:23|        1291|        148|2005-06-25 13:57:23|       1|2006-02-16 02:30:53|\n|        148|       1|   Eleanor|     Hunt|eleanor.hunt@saki...|       152|      true| 2006-02-14|2013-05-26 14:49:...|     1|     2843|2005-06-19 22:36:39|        1520|        148|2005-06-26 22:33:39|       2|2006-02-16 02:30:53|\n|        148|       1|   Eleanor|     Hunt|eleanor.hunt@saki...|       152|      true| 2006-02-14|2013-05-26 14:49:...|     1|     2847|2005-06-19 22:54:01|        1247|        148|2005-06-27 23:05:01|       2|2006-02-16 02:30:53|\n|        148|       1|   Eleanor|     Hunt|eleanor.hunt@saki...|       152|      true| 2006-02-14|2013-05-26 14:49:...|     1|     3653|2005-07-06 07:45:13|        2513|        148|2005-07-10 11:51:13|       2|2006-02-16 02:30:53|\n|        148|       1|   Eleanor|     Hunt|eleanor.hunt@saki...|       152|      true| 2006-02-14|2013-05-26 14:49:...|     1|     4080|2005-07-07 05:09:54|        1364|        148|2005-07-11 23:58:54|       1|2006-02-16 02:30:53|\n|        148|       1|   Eleanor|     Hunt|eleanor.hunt@saki...|       152|      true| 2006-02-14|2013-05-26 14:49:...|     1|     4746|2005-07-08 13:47:55|         173|        148|2005-07-11 09:06:55|       2|2006-02-16 02:30:53|\n|        148|       1|   Eleanor|     Hunt|eleanor.hunt@saki...|       152|      true| 2006-02-14|2013-05-26 14:49:...|     1|     4950|2005-07-08 22:58:07|        3291|        148|2005-07-09 20:41:07|       2|2006-02-16 02:30:53|\n|        148|       1|   Eleanor|     Hunt|eleanor.hunt@saki...|       152|      true| 2006-02-14|2013-05-26 14:49:...|     1|     5034|2005-07-09 02:48:15|         340|        148|2005-07-11 23:13:15|       2|2006-02-16 02:30:53|\n|        148|       1|   Eleanor|     Hunt|eleanor.hunt@saki...|       152|      true| 2006-02-14|2013-05-26 14:49:...|     1|     5372|2005-07-09 18:48:39|        3551|        148|2005-07-11 17:40:39|       1|2006-02-16 02:30:53|\n|        148|       1|   Eleanor|     Hunt|eleanor.hunt@saki...|       152|      true| 2006-02-14|2013-05-26 14:49:...|     1|     6169|2005-07-11 10:25:56|        2781|        148|2005-07-19 07:18:56|       2|2006-02-16 02:30:53|\n|        148|       1|   Eleanor|     Hunt|eleanor.hunt@saki...|       152|      true| 2006-02-14|2013-05-26 14:49:...|     1|     6640|2005-07-12 10:27:19|        2794|        148|2005-07-21 06:28:19|       2|2006-02-16 02:30:53|\n|        148|       1|   Eleanor|     Hunt|eleanor.hunt@saki...|       152|      true| 2006-02-14|2013-05-26 14:49:...|     1|     6793|2005-07-12 16:37:55|         103|        148|2005-07-21 16:04:55|       2|2006-02-16 02:30:53|\n|        148|       1|   Eleanor|     Hunt|eleanor.hunt@saki...|       152|      true| 2006-02-14|2013-05-26 14:49:...|     1|     7656|2005-07-28 02:07:19|         178|        148|2005-07-31 04:05:19|       1|2006-02-16 02:30:53|\n|        148|       1|   Eleanor|     Hunt|eleanor.hunt@saki...|       152|      true| 2006-02-14|2013-05-26 14:49:...|     1|     7693|2005-07-28 03:31:22|        2479|        148|2005-07-31 06:42:22|       2|2006-02-16 02:30:53|\n|        148|       1|   Eleanor|     Hunt|eleanor.hunt@saki...|       152|      true| 2006-02-14|2013-05-26 14:49:...|     1|     7865|2005-07-28 10:07:04|        2334|        148|2005-08-06 08:16:04|       2|2006-02-16 02:30:53|\n|        148|       1|   Eleanor|     Hunt|eleanor.hunt@saki...|       152|      true| 2006-02-14|2013-05-26 14:49:...|     1|     8111|2005-07-28 19:10:03|        3226|        148|2005-07-29 22:25:03|       1|2006-02-16 02:30:53|\n|        148|       1|   Eleanor|     Hunt|eleanor.hunt@saki...|       152|      true| 2006-02-14|2013-05-26 14:49:...|     1|     8331|2005-07-29 04:13:29|          18|        148|2005-08-04 07:09:29|       1|2006-02-16 02:30:53|\n+-----------+--------+----------+---------+--------------------+----------+----------+-----------+--------------------+------+---------+-------------------+------------+-----------+-------------------+--------+-------------------+\nonly showing top 20 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1602148856628_657590440",
+      "id": "paragraph_1602148856628_657590440",
+      "dateCreated": "2020-10-08 09:20:56.629",
+      "dateStarted": "2020-10-16 15:21:18.635",
+      "dateFinished": "2020-10-16 15:21:21.517",
+      "status": "FINISHED"
+    },
+    {
+      "text": "%spark.pyspark\n",
+      "user": "anonymous",
+      "dateUpdated": "2020-10-11 16:48:52.040",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1602434932040_-1202166160",
+      "id": "paragraph_1602434932040_-1202166160",
+      "dateCreated": "2020-10-11 16:48:52.040",
+      "status": "READY"
+    }
+  ],
+  "name": "testing_my_notebook",
+  "id": "2FPV1XRXR",
+  "defaultInterpreterGroup": "spark",
+  "version": "0.9.0-preview1",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

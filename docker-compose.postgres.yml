@@ -1,0 +1,102 @@
+version: '3'
+services:
+  source_db:
+    image: "postgres" # use latest official postgres version
+    env_file:
+      - database_source.env # configure postgres
+    healthcheck:
+      test: "pg_isready -q -d source_db -U source_user"    
+    volumes:
+      - source-db-data:/var/lib/postgresql_source/data/ # persist data even if container shuts down
+    ports:
+      - 5432
+    networks:
+     virtualnet:
+        ipv4_address: 172.16.100.10
+
+  target_db:
+    image: "postgres" # use latest official postgres version
+    env_file:
+      - database_target.env # configure postgres
+    healthcheck:
+      test: "pg_isready -q -d target_db -U target_user"    
+    volumes:
+      - target-db-data:/var/lib/postgresql_target/data/ # persist data even if container shuts down
+    ports:
+      - 5432
+    networks:
+     virtualnet:
+        ipv4_address: 172.16.100.11
+
+spark-master:
+    image: gettyimages/spark
+    command: bin/spark-class org.apache.spark.deploy.master.Master -h spark-master
+    hostname: spark-master
+    environment:
+      SPARK_CONF_DIR: /conf
+#      SPARK_PUBLIC_DNS: 10.129.34.90
+    volumes:
+      - spark-master-volume:/conf
+      - spark-master-volume:/tmp/data
+    ports: 
+      - 8000
+    networks:
+     virtualnet:
+        ipv4_address: 172.16.100.20
+
+
+  spark-worker:
+    image: gettyimages/spark
+    command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+    hostname: spark-worker
+    environment:
+      SPARK_MASTER_URL: spark-master:7077
+      SPARK_CONF_DIR: /conf
+#      SPARK_PUBLIC_DNS: 10.129.34.90
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 2g
+    volumes:
+      - spark-worker-volume:/conf
+      - spark-worker-volume:/tmp/data
+    ports:
+      - "8081-8100" 
+    networks:
+     virtualnet:
+        ipv4_address: 172.16.100.21
+
+
+  zeppelin:
+    image: apache/zeppelin:0.8.0
+    ports: 
+      - 8080
+      - 8443
+    networks:
+     virtualnet:
+        ipv4_address: 172.16.100.30
+    volumes:
+      - spark-master-volume:/opt/zeppelin/logs
+      - spark-master-volume:/opt/zeppelin/notebookcd
+    environment:
+      MASTER: "spark://spark-master:7077"
+      SPARK_MASTER: "spark://spark-master:7077"
+      SPARK_HOME: /usr/spark-2.4.1
+    depends_on:
+      - spark-master
+
+
+volumes:
+  source-db-data: # named volumes can be managed easier using docker-compose
+  target-db-data:
+  spark-master-volume:
+    driver: local
+  spark-worker-volume:
+    driver: local
+
+
+networks:
+   virtualnet:
+        driver: bridge
+        ipam:
+           driver: default
+           config:
+             - subnet: "172.16.100.0/24"
