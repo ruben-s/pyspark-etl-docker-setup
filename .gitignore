@@ -1,5 +1,8 @@
 **/logs
 *.log
-spark/
+spark
 spark-3.0.0-bin-hadoop2.7/
 spark-3.0.0-bin-hadoop2.7.tar
+target-db-data/
+source-db-data/
+
